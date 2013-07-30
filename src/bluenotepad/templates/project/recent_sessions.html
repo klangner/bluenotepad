@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{project.title}}</h1>
+
+<div class="row-fluid">
+	<div class="tabbable tabs-left">
+    	<ul class="nav nav-tabs">
+    		<li><a href="/project/{{project.key.id}}/stats">Daily stats</a></li>
+		    <li class="active"><a href="#"><b>Recent sessions</b></a></li>
+    		<li><a href="/project/{{project.key.id}}/sessions">Sessions</a></li>
+	    </ul>
+	    <div  class="tab-content">
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>#</th>
+					<th>Create at</th>
+					<th>Event count</th>
+					<th>Monitored event count</th>
+					<th>Last updated</th>
+				</tr>
+				{% for session in sessions %}
+					<tr>
+						<td>{{forloop.counter}}</td>
+						<td>{{session.created_at}}</td>
+						<td>{{session.events}}</td>
+						<td>{{session.monitored_events}}</td>
+						<td>{{session.last_updated}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>        
+
+{% endblock %}
+

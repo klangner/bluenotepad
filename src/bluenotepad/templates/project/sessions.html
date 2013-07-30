@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<script src='https://www.google.com/jsapi' type='text/javascript'></script>
+
+<script type="text/javascript">
+	google.load('visualization', '1.0', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart(){
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('number', 'Session events');
+	    data.addColumn('number', 'Count');
+	    data.addRows([
+			{% for bin in bins %}
+				[{{forloop.counter}}, {{bin}}]{% if not forloop.last %},{% endif %}
+			{% endfor %}
+	    ]);
+	 
+	    var chartDiv = document.getElementById('chart_div')
+	    var chart = new google.visualization.ColumnChart(chartDiv);
+	    var options = {
+	    		width: 900, 
+	    		height: 500,
+	            title: 'Session activity',
+	            pointSize:10,
+	            hAxis: {minValue:0, title: "Events per session (x10)"},
+	            vAxis: {minValue:0, title: "Number of sessions"}
+	          };
+
+	    chart.draw(data, options);	    
+	}
+	
+</script>
+
+{% endblock %}
+{% block content %}
+
+<h1>{{project.title}}</h1>
+
+<div class="row-fluid">
+	<div class="tabbable tabs-left">
+    	<ul class="nav nav-tabs">
+    		<li><a href="/project/{{project.key.id}}/stats">Daily stats</a></li>
+		    <li><a href="/project/{{project.key.id}}">Recent sessions</a></li>
+    		<li class="active"><a href="#"><b>Sessions</b></a></li>
+	    </ul>
+	    <div  class="tab-content">
+			<div id="chart_div"></div>
+		</div>
+	</div>
+</div>        
+
+{% endblock %}
+

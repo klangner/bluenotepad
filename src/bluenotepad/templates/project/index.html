@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Projects</h1>
+
+<div class="btn-group navbar">
+    <a class="btn btn-primary" href="create">Create new project</a>
+</div>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Title</th>
+		<th>Counter</th>
+		<th>URL</th>
+		<th>Description</th>
+	</tr>
+	{% for project in projects %}
+	<tr>	
+		<td><a href="/project/{{project.key.id}}/stats">{{project.title}}</a></td>
+		<td>{{project.counter}}</td>
+		<td>{{project.url}}</td>
+		<td>{{project.description}}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+
+{% endblock %}
+
