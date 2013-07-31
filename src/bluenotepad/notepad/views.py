@@ -91,7 +91,10 @@ def sessions(request, notepad_id):
 @login_required
 def files(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
-    files = os.listdir(FILE_STORAGE + notepad.uuid)
+    try:
+        files = os.listdir(FILE_STORAGE + notepad.uuid)
+    except IOError:
+        files = []
     return render_to_response('notepad/files.html', 
                               {'notepad': notepad,
                                'files': files},

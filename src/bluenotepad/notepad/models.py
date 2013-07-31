@@ -14,6 +14,12 @@ class Notepad(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
+    def __unicode__(self):
+        return u'%s: %s' % (self.owner, self.title)
     
     
 class DailyStats(models.Model):
@@ -25,4 +31,10 @@ class DailyStats(models.Model):
     events2 = models.IntegerField(default=0)
     events3 = models.IntegerField(default=0)
     notes = models.TextField()
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
+    def __unicode__(self):
+        return u'%s %s' % (self.notepad, self.day)
     
