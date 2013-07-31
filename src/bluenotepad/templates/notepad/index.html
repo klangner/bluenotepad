@@ -11,16 +11,14 @@
 <table class="table table-bordered">
 	<tr>
 		<th>Title</th>
-		<th>Counter</th>
-		<th>URL</th>
+		<th>Created at</th>
 		<th>Description</th>
 	</tr>
-	{% for project in projects %}
+	{% for notepad in notepads %}
 	<tr>	
-		<td><a href="/project/{{project.key.id}}/stats">{{project.title}}</a></td>
-		<td>{{project.counter}}</td>
-		<td>{{project.url}}</td>
-		<td>{{project.description}}</td>
+		<td><a href="/notepad/{{notepad.id}}/stats">{{notepad.title}}</a></td>
+		<td>{{notepad.created_at}}</td>
+		<td>{{notepad.description}}</td>
 	</tr>
 	{% endfor %}
 </table>

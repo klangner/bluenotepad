@@ -57,7 +57,7 @@
 	          	<div class="navbar-text pull-left">
 	          		Keep notes while developing new product.
 	          	</div>
-	        	{% if user %}
+	        	{% if user.is_authenticated %}
 					<div class="btn-group pull-right">
            				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
              				<i class="icon-user"></i> {{user}}

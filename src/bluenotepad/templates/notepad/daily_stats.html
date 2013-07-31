@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1>{{project.title}}</h1>
+<h1>{{notepad.title}}</h1>
 
 <div class="row-fluid">
 	<div class="tabbable tabs-left">
     	<ul class="nav nav-tabs">
     		<li class="active"><a href="#"><b>Daily stats</b></a></li>
-		    <li><a href="/project/{{project.key.id}}">Recent sessions</a></li>
-    		<li><a href="/project/{{project.key.id}}/sessions">Sessions</a></li>
+		    <li><a href="/notepad/{{notepad.id}}">Recent sessions</a></li>
+    		<li><a href="/notepad/{{notepad.id}}/sessions">Sessions</a></li>
 	    </ul>
 	    <div  class="tab-content">
 			<table class="table table-bordered table-striped">

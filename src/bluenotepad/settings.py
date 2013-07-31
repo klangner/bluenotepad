@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     # aplikacje projektowe
+    'bluenotepad.notepad'
 )
 
 # A sample logging configuration. The only tangible logging

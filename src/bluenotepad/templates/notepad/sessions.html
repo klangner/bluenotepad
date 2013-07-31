@@ -37,13 +37,13 @@
 {% endblock %}
 {% block content %}
 
-<h1>{{project.title}}</h1>
+<h1>{{notepad.title}}</h1>
 
 <div class="row-fluid">
 	<div class="tabbable tabs-left">
     	<ul class="nav nav-tabs">
-    		<li><a href="/project/{{project.key.id}}/stats">Daily stats</a></li>
-		    <li><a href="/project/{{project.key.id}}">Recent sessions</a></li>
+    		<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
+		    <li><a href="/notepad/{{notepad.id}}">Recent sessions</a></li>
     		<li class="active"><a href="#"><b>Sessions</b></a></li>
 	    </ul>
 	    <div  class="tab-content">
