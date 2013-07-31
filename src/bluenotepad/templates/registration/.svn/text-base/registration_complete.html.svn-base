@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+	<style>
+		.intro{margin-top:1em;font-size:120%}
+		.intro li{padding-top:1em}
+	</style>
+	
+	<div class="well span8 offset2">
+		
+		<h2>Dziękujemy za założenie konta</h2>
+		
+		<p style="margin-top:1em;font-size:150%">Co dalej?:</p>
+		<ul class="intro">
+			<li>Na początku otrzymasz 10 losowych słówek oraz jeden typ ćwiczenia</li>
+			<li>Za poprawne zrobienie ćwiczenia otrzymujesz monety oraz punkty doświadczenia</li>
+			<li>Monety pozwalają dokupić dodatkowe materiały (słówka, karty itp.)</li>
+			<li>Punkty doświadczenia zwiększają Twój poziom, dając Ci dostęp do coraz większej ilości ćwiczeń i gier</li>
+		</ul>
+		<p style="margin-top:2em; text-align:center">
+			<a class="btn btn-primary btn-large" href="/">Zaczynamy! :-)</a>
+		</p>
+	</div>
+	
+{% endblock %}
