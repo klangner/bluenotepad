@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Django settings for naukaslowek project.
 import os
-from local_settings import LOCAL_DATABASES, LOCAL_DEBUG
+from local_settings import LOCAL_DATABASES, LOCAL_DEBUG, LOCAL_FILE_STORAGE
 
 DEBUG = LOCAL_DEBUG
 DATABASES = LOCAL_DATABASES
+FILE_STORAGE = LOCAL_FILE_STORAGE
 
 
 TEMPLATE_DEBUG = DEBUG

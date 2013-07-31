@@ -6,8 +6,9 @@ import os
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^accounts/', include('registration.backends.simple.urls')),                        
     url(r'^$', 'bluenotepad.public.views.index'),
+    (r'^accounts/', include('registration.backends.simple.urls')),
+    (r'^api/', include('bluenotepad.api.urls')),                            
     (r'^notepad/', include('bluenotepad.notepad.urls')),
 
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),    

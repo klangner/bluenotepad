@@ -5,10 +5,12 @@ Created on 2012-12-01
 @author: Krzysztof Langner
 '''
 from bluenotepad.notepad.models import Notepad, DailyStats
+from bluenotepad.settings import FILE_STORAGE
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from datetime import datetime, timedelta
+import os
 
 
 @login_required
@@ -86,4 +88,11 @@ def sessions(request, notepad_id):
 #    return HttpResponseRedirect('stats')
 
 
-
+@login_required
+def files(request, notepad_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    files = os.listdir(FILE_STORAGE + notepad.uuid)
+    return render_to_response('notepad/files.html', 
+                              {'notepad': notepad,
+                               'files': files},
+                              context_instance=RequestContext(request))

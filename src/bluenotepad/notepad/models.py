@@ -10,7 +10,7 @@ from django.db import models
 
 class Notepad(models.Model):
     owner = models.ForeignKey(User)
-    key = models.CharField(max_length=10)
+    uuid = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
     description = models.TextField()

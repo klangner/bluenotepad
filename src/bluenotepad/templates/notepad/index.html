@@ -11,12 +11,14 @@
 <table class="table table-bordered">
 	<tr>
 		<th>Title</th>
+		<th>ID</th>
 		<th>Created at</th>
 		<th>Description</th>
 	</tr>
 	{% for notepad in notepads %}
 	<tr>	
 		<td><a href="/notepad/{{notepad.id}}/stats">{{notepad.title}}</a></td>
+		<td>{{notepad.uuid}}</td>
 		<td>{{notepad.created_at}}</td>
 		<td>{{notepad.description}}</td>
 	</tr>
