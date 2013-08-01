@@ -16,18 +16,16 @@
 			<table class="table table-bordered table-striped">
 				<tr>
 					<th>#</th>
+					<th>Session</th>
 					<th>Create at</th>
-					<th>Event count</th>
-					<th>Monitored event count</th>
-					<th>Last updated</th>
+					<th>Event</th>
 				</tr>
 				{% for session in sessions %}
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<td>{{session.created_at}}</td>
-						<td>{{session.events}}</td>
-						<td>{{session.monitored_events}}</td>
-						<td>{{session.last_updated}}</td>
+						<td>{{session.session}}</td>
+						<td>{{session.time}}</td>
+						<td>{{session.event}}</td>
 					</tr>
 				{% endfor %}
 			</table>

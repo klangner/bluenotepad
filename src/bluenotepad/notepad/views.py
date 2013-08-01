@@ -6,10 +6,11 @@ Created on 2012-12-01
 '''
 from bluenotepad.notepad.models import Notepad, DailyStats
 from bluenotepad.settings import FILE_STORAGE
-from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
+import datetime
+import json
 import os
 
 
@@ -22,9 +23,17 @@ def index(request):
 
 
 @login_required
-def notepad(request, notepad_id):
+def recent_sessions(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
-    sessions = {}
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    filename = FILE_STORAGE + notepad.uuid + "/" + today + ".log" 
+    sessions = []
+    try:
+        log_file = open(filename, 'r')
+        for line in log_file.readlines()[:50]:
+            sessions.append(json.loads(line))
+    except IOError:
+        pass
     return render_to_response('notepad/recent_sessions.html', 
                               {'notepad': notepad,
                                'sessions': sessions},
