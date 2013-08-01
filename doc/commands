@@ -1,0 +1,2 @@
+Cron aggregate:
+cd /home/matrobot/bluenotepad.com/src/bluenotepad && /home/matrobot/local/bin/python manage.py aggregate
