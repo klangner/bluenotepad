@@ -1,26 +1,12 @@
-{% extends "base.html" %}
+{% extends "notepad/notepad_base.html" %}
 
-{% block content %}
+{% block tab_content %}
 
-<h1>{{notepad.title}}</h1>
-
-<div class="row-fluid">
-	<div class="tabbable tabs-left">
-    	<ul class="nav nav-tabs">
-    		<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
-		    <li><a href="/notepad/{{notepad.id}}">Recent sessions</a></li>
-    		<li><a href="/notepad/{{notepad.id}}/sessions">Sessions</a></li>
-    		<li class="active"><a href="#"><b>Files</b></a></li>
-	    </ul>
-	    <div  class="tab-content">
-	    	<ul>
-	    	{% for filename in files %}
-	    		<li><a href='/notepad/{{notepad.id}}/download?file={{filename}}'>{{filename}}</a></li>
-	    	{% endfor %}
-	    	</ul>
-		</div>
-	</div>
-</div>        
+   	<ul>
+   	{% for filename in files %}
+   		<li><a href='/notepad/{{notepad.id}}/download?file={{filename}}'>{{filename}}</a></li>
+   	{% endfor %}
+   	</ul>
 
 {% endblock %}
 

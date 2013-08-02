@@ -1,37 +1,22 @@
-{% extends "base.html" %}
+{% extends "notepad/notepad_base.html" %}
 
-{% block content %}
-
-<h1>{{notepad.title}}</h1>
-
-<div class="row-fluid">
-	<div class="tabbable tabs-left">
-    	<ul class="nav nav-tabs">
-    		<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
-		    <li class="active"><a href="#"><b>Recent sessions</b></a></li>
-    		<li><a href="/notepad/{{notepad.id}}/sessions">Sessions</a></li>
-    		<li><a href="/notepad/{{notepad.id}}/files">Files</a></li>
-	    </ul>
-	    <div  class="tab-content">
-			<table class="table table-bordered table-striped">
-				<tr>
-					<th>#</th>
-					<th>Session</th>
-					<th>Create at</th>
-					<th>Event</th>
-				</tr>
-				{% for session in sessions %}
-					<tr>
-						<td>{{forloop.counter}}</td>
-						<td>{{session.session}}</td>
-						<td>{{session.time}}</td>
-						<td>{{session.event}}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		</div>
-	</div>
-</div>        
+{% block tab_content %}
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>#</th>
+			<th>Session</th>
+			<th>Create at</th>
+			<th>Event</th>
+		</tr>
+		{% for session in sessions %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{session.session}}</td>
+				<td>{{session.time}}</td>
+				<td>{{session.event}}</td>
+			</tr>
+		{% endfor %}
+	</table>
 
 {% endblock %}
 

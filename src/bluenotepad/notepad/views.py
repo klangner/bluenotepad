@@ -38,7 +38,8 @@ def recent_sessions(request, notepad_id):
         pass
     return render_to_response('notepad/recent_sessions.html', 
                               {'notepad': notepad,
-                               'sessions': sessions},
+                               'sessions': sessions,
+                               'active_tab': 1},
                               context_instance=RequestContext(request))
 
 
@@ -64,7 +65,8 @@ def stats(request, notepad_id):
     stats = DailyStats.objects.filter(notepad=notepad).order_by('-day')
     return render_to_response('notepad/daily_stats.html', 
                               {'notepad': notepad,
-                               'stats': stats},
+                               'stats': stats,
+                               'active_tab': 0},
                               context_instance=RequestContext(request))
 
 
@@ -80,7 +82,8 @@ def sessions(request, notepad_id):
         bins[index] += 1
     return render_to_response('notepad/sessions.html', 
                               {'notepad': notepad,
-                               'bins': bins},
+                               'bins': bins,
+                               'active_tab': 2},
                               context_instance=RequestContext(request))
 
 
@@ -111,7 +114,8 @@ def files(request, notepad_id):
         pass
     return render_to_response('notepad/files.html', 
                               {'notepad': notepad,
-                               'files': files},
+                               'files': files,
+                               'active_tab': 3},
                               context_instance=RequestContext(request))
     
     

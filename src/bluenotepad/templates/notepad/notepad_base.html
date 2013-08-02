@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{notepad.title}}</h1>
+
+<div class="row-fluid">
+	<div class="tabbable tabs-left">
+    	<ul class="nav nav-tabs">
+    		{% if active_tab == 0 %}
+    			<li class="active"><a href="#"><b>Daily stats</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
+    		{% endif%}
+    		{% if active_tab == 1 %}
+    			<li class="active"><a href="#"><b>Recent sessions</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/recent">Recent sessions</a></li>
+    		{% endif%}
+    		{% if active_tab == 2 %}
+    			<li class="active"><a href="#"><b>Sessions stats</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/sessions">Sessions stats</a></li>
+    		{% endif%}
+    		{% if active_tab == 3 %}
+    			<li class="active"><a href="#"><b>Files</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/files">Files</a></li>
+    		{% endif%}
+	    </ul>
+	    <div  class="tab-content">
+	    	{% block tab_content %}
+	    	{% endblock %}
+		</div>
+	</div>
+</div>        
+
+{% endblock %}
+
