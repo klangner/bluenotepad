@@ -7,8 +7,10 @@ Created on 2012-12-01
 from bluenotepad.notepad.models import Notepad, DailyStats
 from bluenotepad.settings import FILE_STORAGE
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
+from django.core.servers.basehttp import FileWrapper
 import datetime
 import json
 import os
@@ -100,11 +102,25 @@ def sessions(request, notepad_id):
 @login_required
 def files(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
+    files = []
     try:
-        files = os.listdir(FILE_STORAGE + notepad.uuid)
+        for f in os.listdir(FILE_STORAGE + notepad.uuid):
+            if f.endswith('.gz'):
+                files.append(f)
     except OSError:
-        files = []
+        pass
     return render_to_response('notepad/files.html', 
                               {'notepad': notepad,
                                'files': files},
                               context_instance=RequestContext(request))
+    
+    
+@login_required
+def download(request, notepad_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    filename = request.GET['file']
+    filepath = FILE_STORAGE + notepad.uuid + "/" + filename
+    f = open(filepath, "r")
+    response = HttpResponse(FileWrapper(f), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s' % (filename)
+    return response    

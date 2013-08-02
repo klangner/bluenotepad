@@ -8,6 +8,7 @@ urlpatterns = patterns('bluenotepad.notepad.views',
     (r'^(?P<notepad_id>\d+)/stats$', 'stats'),
     (r'^(?P<notepad_id>\d+)/sessions$', 'sessions'),
     (r'^(?P<notepad_id>\d+)/files$', 'files'),
+    (r'^(?P<notepad_id>\d+)/download$', 'download'),
 #    (r'^(?P<notepad_id>\d+)/edit_note$', 'edit_note'),
 )
 

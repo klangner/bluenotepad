@@ -15,7 +15,7 @@
 	    <div  class="tab-content">
 	    	<ul>
 	    	{% for filename in files %}
-	    		<li>{{filename}}</li>
+	    		<li><a href='/notepad/{{notepad.id}}/download?file={{filename}}'>{{filename}}</a></li>
 	    	{% endfor %}
 	    	</ul>
 		</div>
