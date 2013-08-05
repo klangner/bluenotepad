@@ -4,13 +4,13 @@ Created on 2012-12-01
 
 @author: Krzysztof Langner
 '''
-from bluenotepad.notepad.models import Notepad, DailyStats
+from bluenotepad.notepad.models import Notepad, DailyStats, StatDefinition
 from bluenotepad.settings import FILE_STORAGE
 from django.contrib.auth.decorators import login_required
+from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from django.core.servers.basehttp import FileWrapper
 import datetime
 import json
 import os
@@ -128,3 +128,14 @@ def download(request, notepad_id):
     response = HttpResponse(FileWrapper(f), content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s' % (filename)
     return response    
+
+
+@login_required
+def settings(request, notepad_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    stats = StatDefinition.objects.filter(notepad=notepad)
+    return render_to_response('notepad/settings.html', 
+                              {'notepad': notepad,
+                               'stats': stats,
+                               'active_tab': 10},
+                              context_instance=RequestContext(request))

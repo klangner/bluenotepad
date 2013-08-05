@@ -27,6 +27,11 @@
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/files">Files</a></li>
     		{% endif%}
+    		{% if active_tab == 10 %}
+    			<li class="active"><a href="#"><b>Settings</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/settings">Settings</a></li>
+    		{% endif%}
 	    </ul>
 	    <div  class="tab-content">
 	    	{% block tab_content %}

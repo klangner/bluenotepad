@@ -20,6 +20,14 @@ class Notepad(models.Model):
 
     def __unicode__(self):
         return u'%s: %s' % (self.owner, self.title)
+
+
+class StatDefinition(models.Model):
+    notepad = models.ForeignKey(Notepad)
+    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    rules = models.TextField()
     
     
 class DailyStats(models.Model):
@@ -27,9 +35,6 @@ class DailyStats(models.Model):
     day = models.DateField()
     all_events = models.IntegerField(default=0)
     sessions = models.IntegerField(default=0)
-    events1 = models.IntegerField(default=0)
-    events2 = models.IntegerField(default=0)
-    events3 = models.IntegerField(default=0)
     notes = models.TextField()
 
     def __str__(self):
@@ -37,4 +42,13 @@ class DailyStats(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.notepad, self.day)
+
+    
+class StatData(models.Model):
+    daily_stats = models.ForeignKey(DailyStats)
+    title = models.CharField(max_length=200)
+    rules = models.TextField()
+    value = models.IntegerField(default=0)
+    
+    
     
