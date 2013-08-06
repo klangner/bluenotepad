@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Create new project</h1>
+<h1>Create new notepad</h1>
 
 {{ form.errors }}
 <form accept-charset="UTF-8" action="create" class="form-vertical" method="post">
@@ -14,13 +14,6 @@
 			<label class="control-label" for="id_title">Title:</label>
          	<div class="controls">
            		<input id="id_title" class="span12" name="title" type="text"/>
-         	</div>
-   		</div>
-
-   		<div class="control-group">
-        	<label class="control-label" for="id_url">Content URL:</label>
-         	<div class="controls">
-           		<input id="id_url" class="span12" name="url" type="text"/>
          	</div>
    		</div>
 

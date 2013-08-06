@@ -2,9 +2,8 @@
 from django import forms
 
 
-class ProjectForm(forms.Form):
+class NotepadForm(forms.Form):
     title = forms.CharField()
-    url = forms.CharField(required=False)
     info = forms.CharField(required=False)
 
 

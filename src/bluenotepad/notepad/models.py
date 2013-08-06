@@ -7,10 +7,13 @@ Created on 2013-07-31
 
 from django.contrib.auth.models import User
 from django.db import models
+import base64
+import uuid
 
 class Notepad(models.Model):
+    
     owner = models.ForeignKey(User)
-    uuid = models.CharField(max_length=30)
+    uuid = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -20,6 +23,9 @@ class Notepad(models.Model):
 
     def __unicode__(self):
         return u'%s: %s' % (self.owner, self.title)
+    
+    def assignID(self):
+        self.uuid = base64.urlsafe_b64encode(uuid.uuid4().bytes).replace('=', '')
 
 
 class StatDefinition(models.Model):

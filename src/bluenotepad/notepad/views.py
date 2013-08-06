@@ -4,11 +4,12 @@ Created on 2012-12-01
 
 @author: Krzysztof Langner
 '''
+from bluenotepad.notepad.forms import NotepadForm
 from bluenotepad.notepad.models import Notepad, DailyStats, StatDefinition
 from bluenotepad.settings import FILE_STORAGE
 from django.contrib.auth.decorators import login_required
 from django.core.servers.basehttp import FileWrapper
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 import datetime
@@ -43,20 +44,21 @@ def recent_sessions(request, notepad_id):
                               context_instance=RequestContext(request))
 
 
-#@login_required
-#def create_notepad(request):
-#    form = None
-#    if request.method == 'POST':
-#        form = ProjectForm(request.POST)
-#        if form.is_valid():
-#            project = Project()
-#            project.title = form.cleaned_data['title']
-#            project.description = form.cleaned_data['info']
-#            project.url = form.cleaned_data['url']
-#            project.put()
-#            return HttpResponseRedirect('/project/%d' % project.key().id())
-#    return render_to_response('project/create_project.html', {'form':form}, 
-#                              context_instance=RequestContext(request))
+@login_required
+def create_notepad(request):
+    form = None
+    if request.method == 'POST':
+        form = NotepadForm(request.POST)
+        if form.is_valid():
+            notepad = Notepad()
+            notepad.assignID()
+            notepad.owner = request.user
+            notepad.title = form.cleaned_data['title']
+            notepad.description = form.cleaned_data['info']
+            notepad.save()
+            return HttpResponseRedirect('/notepad')
+    return render_to_response('notepad/create_notepad.html', {'form':form}, 
+                              context_instance=RequestContext(request))
 
 
 @login_required
