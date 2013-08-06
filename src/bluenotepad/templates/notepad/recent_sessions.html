@@ -5,14 +5,14 @@
 		<tr>
 			<th>#</th>
 			<th>Session</th>
-			<th>Create at</th>
+			<th>Created</th>
 			<th>Event</th>
 		</tr>
 		{% for session in sessions %}
 			<tr>
 				<td>{{forloop.counter}}</td>
 				<td>{{session.session}}</td>
-				<td>{{session.time}}</td>
+				<td>{{session.time|timesince}} ago</td>
 				<td>{{session.event}}</td>
 			</tr>
 		{% endfor %}

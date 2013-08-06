@@ -34,7 +34,9 @@ def recent_sessions(request, notepad_id):
     try:
         log_file = open(filename, 'r')
         for line in log_file.readlines()[:50]:
-            sessions.append(json.loads(line))
+            data = json.loads(line)
+            data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%d %H:%M:%S")
+            sessions.append(data)
     except IOError:
         pass
     return render_to_response('notepad/recent_sessions.html', 
