@@ -8,6 +8,7 @@ Created on 2013-07-31
 from django.contrib.auth.models import User
 from django.db import models
 import base64
+import re
 import uuid
 
 class Notepad(models.Model):
@@ -25,7 +26,8 @@ class Notepad(models.Model):
         return u'%s: %s' % (self.owner, self.title)
     
     def assignID(self):
-        self.uuid = base64.urlsafe_b64encode(uuid.uuid4().bytes).replace('=', '')
+        text = base64.urlsafe_b64encode(uuid.uuid4().bytes)
+        self.uuid = re.sub('[-=]', '', text)
 
 
 class StatDefinition(models.Model):
