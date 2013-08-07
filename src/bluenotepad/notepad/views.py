@@ -35,7 +35,10 @@ def recent_sessions(request, notepad_id):
         log_file = open(filename, 'r')
         for line in log_file.readlines()[:50]:
             data = json.loads(line)
-            data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%dT%H:%M:%S")
+            if data['time'].index('T') > 0: 
+                data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%dT%H:%M:%S")
+            else:
+                data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%d %H:%M:%S")
             sessions.append(data)
     except IOError:
         pass
