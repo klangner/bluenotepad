@@ -22,7 +22,8 @@ def log(request):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     data = {'time':timestamp}
     for key in request.GET:
-        data[key] = request.GET[key] 
+        if key != 'notepad':
+            data[key] = request.GET[key] 
     log_file.write(json.dumps(data) + "\n")
     log_file.close()
     return HttpResponse('')
