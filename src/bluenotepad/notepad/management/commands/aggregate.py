@@ -3,10 +3,11 @@ Created on 01-08-2013
 
 @author: klangner
 '''
-from bluenotepad.notepad.models import Notepad
+from bluenotepad.notepad.models import Notepad, DailyStats
 from bluenotepad.settings import FILE_STORAGE
 from datetime import timedelta, datetime
 from django.core.management.base import BaseCommand
+from bluenotepad.storage.log import read_sessions
 import gzip
 import os
 
@@ -23,15 +24,24 @@ class Command(BaseCommand):
         counter = 0 
         for notepad in notepads:
             filepath = FILE_STORAGE + notepad.uuid + "/" + filename
-            if os.path.exists(filepath):
-                self.aggregate(filepath)
-                self.compressLog(filepath)
-                counter += 1
-        self.stdout.write('Aggregate command processed %d files\n' % (counter))
+            (sessions, events) = self.processLog(filepath)
+            stats = DailyStats(notepad=notepad)
+            stats.day = yesterday.date()
+            stats.session_count = sessions
+            stats.event_count = events
+            stats.save()
+            counter += 1
+        self.stdout.write('Aggregate command processed %d notepads\n' % (counter))
         
-    def aggregate(self, filename):
-        f = open(filename, "r")
-        f.close()
+    def processLog(self, filename):
+        session_count = 0
+        event_count = 0
+        if os.path.exists(filename):
+            sessions = read_sessions(filename)
+            self.compressLog(filename)
+            session_count = len(sessions)
+            event_count = sum([len(events) for events in sessions.itervalues()])
+        return session_count, event_count
         
     def compressLog(self, filename):
         f_in = open(filename, 'rb')

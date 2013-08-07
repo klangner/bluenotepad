@@ -8,7 +8,6 @@
 			<th>Date</th>
 			<th>Sessions</th>
 			<th>Events</th>
-			<th>Monitored events</th>
 			<th>Notes</th>
 			<th>Actions</th>
 		</tr>
@@ -16,9 +15,8 @@
 			<tr>
 				<td>{{forloop.counter}}</td>
 				<td>{{stat.day}}</td>
-				<td>{{stat.sessions}}</td>
-				<td>{{stat.events}}</td>
-				<td>{{stat.monitored_events}} ({{stat.monitored_events_pct}}%)</td>
+				<td>{{stat.session_count}}</td>
+				<td>{{stat.event_count}}</td>
 				<td>{{stat.notes|linebreaks}}
 				<div style='display:none' id="text_{{forloop.counter}}">{{stat.notes}}</div>
 				</td>

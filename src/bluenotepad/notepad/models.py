@@ -41,8 +41,8 @@ class StatDefinition(models.Model):
 class DailyStats(models.Model):
     notepad = models.ForeignKey(Notepad)
     day = models.DateField()
-    all_events = models.IntegerField(default=0)
-    sessions = models.IntegerField(default=0)
+    event_count = models.IntegerField(default=0)
+    session_count = models.IntegerField(default=0)
     notes = models.TextField()
 
     def __str__(self):
