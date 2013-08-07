@@ -17,9 +17,8 @@ def read_sessions(filename):
             event = json.loads(line)
             session_name = event['session']
             sessions[session_name].append(event)
-    print(sessions)
+    return sessions
     
-
 
 def count_events(filename, events):
     all_events_counter = 0
@@ -30,11 +29,20 @@ def count_events(filename, events):
             all_events_counter += 1
             if event['event'] in events:
                 events_counter += 1
-    return (events_counter, all_events_counter)
-    
+    pct = events_counter*100/all_events_counter
+    print("Found %d (%d%%) out of %d events" % (events_counter, pct, all_events_counter))    
+
+
+def analyze_sessions(filename):
+    sessions = read_sessions(filename)
+    counter = 0
+    for session,events in sessions.iteritems():
+        if len(events) == 1:
+            counter += 1
+            print( "%s: %s" % (session, events[0]['event']))
+    print( 'Found %d 1 event sessions out of all %d sessions' % (counter, len(sessions)))
 
 
 if __name__ == '__main__':
-    filename = DATA_ROOT + '2013-08-01.log' 
-    (events, all_eventes) = count_events( filename, ['json'] )
-    print("Found %d (%d%%) out of %d events" % (events, events*100/all_eventes, all_eventes))
+    filename = DATA_ROOT + '2013-08-06.log' 
+    analyze_sessions(filename)
