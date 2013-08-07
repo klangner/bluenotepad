@@ -19,7 +19,7 @@ def log(request):
     except IOError:
         os.makedirs(FILE_STORAGE + notepad_id)
         log_file = open(filename, 'a+')
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     data = {'time':timestamp}
     for key in request.GET:
         data[key] = request.GET[key] 
