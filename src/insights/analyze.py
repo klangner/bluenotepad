@@ -25,14 +25,17 @@ def count_events(filename, events):
 
 def analyze_sessions(filename):
     sessions = read_sessions(filename)
-    counter = 0
-    for session,events in sessions.iteritems():
+    counter, counter2 = 0, 0
+    for _session,events in sessions.iteritems():
         if len(events) == 1:
             counter += 1
-            print( "%s: %s" % (session, events[0]['event']))
-    print( 'Found %d 1 event sessions out of all %d sessions' % (counter, len(sessions)))
+        elif len(events) == 2:
+            counter2 += 1
+    print( 'Single event sessions: %d' % counter)
+    print( 'Double events sessions: %d' % counter2)
+    print( 'All sessions: %d' % len(sessions))
 
 
 if __name__ == '__main__':
-    filename = DATA_ROOT + '2013-08-06.log' 
+    filename = DATA_ROOT + '2013-08-06.log'
     analyze_sessions(filename)

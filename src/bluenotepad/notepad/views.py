@@ -4,7 +4,7 @@ Created on 2012-12-01
 
 @author: Krzysztof Langner
 '''
-from bluenotepad.notepad.forms import NotepadForm
+from bluenotepad.notepad.forms import NotepadForm, NoteForm
 from bluenotepad.notepad.models import Notepad, DailyStats, StatDefinition
 from bluenotepad.settings import FILE_STORAGE
 from django.contrib.auth.decorators import login_required
@@ -35,17 +35,14 @@ def recent_sessions(request, notepad_id):
         log_file = open(filename, 'r')
         for line in log_file.readlines()[:50]:
             data = json.loads(line)
-            if data['time'].find('T') > 0: # Tymczasowo
-                data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%dT%H:%M:%S")
-            else:
-                data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%d %H:%M:%S")
+            data['time'] = datetime.datetime.strptime(data['time'], "%Y-%m-%dT%H:%M:%S")
             sessions.append(data)
     except IOError:
         pass
     return render_to_response('notepad/recent_sessions.html', 
                               {'notepad': notepad,
                                'sessions': sessions,
-                               'active_tab': 1},
+                               'active_tab': 'recent'},
                               context_instance=RequestContext(request))
 
 
@@ -73,7 +70,7 @@ def stats(request, notepad_id):
     return render_to_response('notepad/daily_stats.html', 
                               {'notepad': notepad,
                                'stats': stats,
-                               'active_tab': 0},
+                               'active_tab': 'stats'},
                               context_instance=RequestContext(request))
 
 
@@ -90,23 +87,20 @@ def sessions(request, notepad_id):
     return render_to_response('notepad/sessions.html', 
                               {'notepad': notepad,
                                'bins': bins,
-                               'active_tab': 2},
+                               'active_tab': 'session_stats'},
                               context_instance=RequestContext(request))
 
 
-#@login_required
-#def edit_note(request, project_id):
-#    if request.method == 'POST':
-#        project = Project.get_by_id(int(project_id))
-#        form = NoteForm(request.POST)
-#        if form.is_valid():
-#            stats = DailyStats.get_by_id(int(form.cleaned_data['noteID']), parent=project)
-#            if stats:
-#                stats.notes = form.cleaned_data['noteText']
-#                stats.put()
-#            else:
-#                return HttpResponse('Wrong id: ' + form.cleaned_data['noteID'])
-#    return HttpResponseRedirect('stats')
+@login_required
+def edit_note(request, notepad_id):
+    if request.method == 'POST':
+        notepad = get_object_or_404(Notepad, pk=notepad_id)
+        form = NoteForm(request.POST)
+        if form.is_valid() and notepad.owner == request.user:
+            stats = get_object_or_404(DailyStats, pk=form.cleaned_data['noteID'])
+            stats.notes = form.cleaned_data['noteText']
+            stats.save()
+    return HttpResponseRedirect('stats')
 
 
 @login_required
@@ -121,8 +115,8 @@ def files(request, notepad_id):
         pass
     return render_to_response('notepad/files.html', 
                               {'notepad': notepad,
-                               'files': files,
-                               'active_tab': 3},
+                               'files': sorted(files, reverse=True),
+                               'active_tab': 'files'},
                               context_instance=RequestContext(request))
     
     
@@ -144,5 +138,5 @@ def settings(request, notepad_id):
     return render_to_response('notepad/settings.html', 
                               {'notepad': notepad,
                                'stats': stats,
-                               'active_tab': 10},
+                               'active_tab': 'settings'},
                               context_instance=RequestContext(request))

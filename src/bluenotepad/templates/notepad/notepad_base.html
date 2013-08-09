@@ -7,27 +7,27 @@
 <div class="row-fluid">
 	<div class="tabbable tabs-left">
     	<ul class="nav nav-tabs">
-    		{% if active_tab == 0 %}
+    		{% if active_tab == 'stats' %}
     			<li class="active"><a href="#"><b>Daily stats</b></a></li>
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
     		{% endif%}
-    		{% if active_tab == 1 %}
+    		{% if active_tab == 'recent' %}
     			<li class="active"><a href="#"><b>Recent sessions</b></a></li>
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/recent">Recent sessions</a></li>
     		{% endif%}
-    		{% if active_tab == 2 %}
+    		{% if active_tab == 'session_stats' %}
     			<li class="active"><a href="#"><b>Sessions stats</b></a></li>
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/sessions">Sessions stats</a></li>
     		{% endif%}
-    		{% if active_tab == 3 %}
+    		{% if active_tab == 'files' %}
     			<li class="active"><a href="#"><b>Files</b></a></li>
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/files">Files</a></li>
     		{% endif%}
-    		{% if active_tab == 10 %}
+    		{% if active_tab == 'settings' %}
     			<li class="active"><a href="#"><b>Settings</b></a></li>
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/settings">Settings</a></li>

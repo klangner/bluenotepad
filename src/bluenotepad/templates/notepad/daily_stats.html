@@ -20,7 +20,7 @@
 				<td>{{stat.notes|linebreaks}}
 				<div style='display:none' id="text_{{forloop.counter}}">{{stat.notes}}</div>
 				</td>
-				<td><button type="button" onClick='showEditor("{{stat.key.id}}","text_{{forloop.counter}}")'>Edit</button></td>
+				<td><button type="button" onClick='showEditor("{{stat.id}}","text_{{forloop.counter}}")'>Edit</button></td>
 			</tr>
 		{% endfor %}
 	</table>
