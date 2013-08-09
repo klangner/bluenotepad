@@ -37,5 +37,9 @@ def analyze_sessions(filename):
 
 
 if __name__ == '__main__':
-    filename = DATA_ROOT + '2013-08-06.log'
-    analyze_sessions(filename)
+#    filename = DATA_ROOT + '2013-08-06.log'
+#    analyze_sessions(filename)
+    events = ['Save']
+    count_events(DATA_ROOT + '2013-08-06.log', events)
+    count_events(DATA_ROOT + '2013-08-07.log', events)
+    count_events(DATA_ROOT + '2013-08-08.log', events)
