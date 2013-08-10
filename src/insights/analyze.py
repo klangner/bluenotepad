@@ -46,7 +46,7 @@ def analyze_events(filename):
     count_events(sessions, ['Show preview'])
     count_events(sessions, ['Paste module'])
     count_events(sessions, ['Save'])
-    print 'All events: %d\n' % sum([len(v) for v in sessions.itervalues()])
+    print 'All events: %d' % sum([len(v) for v in sessions.itervalues()])
 
 
 
@@ -58,13 +58,21 @@ def analyze_event_frequency(filename):
             name = record['event']
             events[name] += 1
     for name, counter in events.iteritems():
-        if counter > 100:
-            print name, ":\t", counter
-    print '\n'
+        print name, ":\t", counter
+
+
+def analyze(filenames, fun):
+    for filename in filenames:
+        print filename
+        fun(DATA_ROOT + filename + '.log')
+        print '\n'
+
 
 if __name__ == '__main__':
 #    analyze_sessions(DATA_ROOT + '2013-08-06.log')
 #    analyze_events(DATA_ROOT + '2013-08-07.log')
-    analyze_event_frequency(DATA_ROOT + '2013-08-06.log')
-    analyze_event_frequency(DATA_ROOT + '2013-08-07.log')
-    analyze_event_frequency(DATA_ROOT + '2013-08-08.log')
+#    analyze_event_frequency(DATA_ROOT + '2013-08-06.log')
+#    analyze_event_frequency(DATA_ROOT + '2013-08-07.log')
+#    analyze_event_frequency(DATA_ROOT + '2013-08-08.log')
+    files = ['2013-08-06', '2013-08-07', '2013-08-08', '2013-08-09']
+    analyze(files, analyze_sessions)
