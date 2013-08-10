@@ -13,14 +13,9 @@
     			<li><a href="/notepad/{{notepad.id}}/stats">Daily stats</a></li>
     		{% endif%}
     		{% if active_tab == 'recent' %}
-    			<li class="active"><a href="#"><b>Recent sessions</b></a></li>
+    			<li class="active"><a href="#"><b>Recent events</b></a></li>
     		{% else %}
-    			<li><a href="/notepad/{{notepad.id}}/recent">Recent sessions</a></li>
-    		{% endif%}
-    		{% if active_tab == 'session_stats' %}
-    			<li class="active"><a href="#"><b>Sessions stats</b></a></li>
-    		{% else %}
-    			<li><a href="/notepad/{{notepad.id}}/sessions">Sessions stats</a></li>
+    			<li><a href="/notepad/{{notepad.id}}/recent">Recent events</a></li>
     		{% endif%}
     		{% if active_tab == 'files' %}
     			<li class="active"><a href="#"><b>Files</b></a></li>

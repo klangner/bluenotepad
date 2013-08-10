@@ -5,7 +5,7 @@ Created on 2012-12-01
 @author: Krzysztof Langner
 '''
 from bluenotepad.notepad.forms import NotepadForm, NoteForm
-from bluenotepad.notepad.models import Notepad, DailyStats, StatDefinition
+from bluenotepad.notepad.models import Notepad, DailyStats
 from bluenotepad.settings import FILE_STORAGE
 from django.contrib.auth.decorators import login_required
 from django.core.servers.basehttp import FileWrapper
@@ -128,7 +128,6 @@ def download(request, notepad_id):
 @login_required
 def settings(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
-    stats = StatDefinition.objects.filter(notepad=notepad)
     return render_to_response('notepad/settings.html', 
                               {'notepad': notepad,
                                'stats': stats,

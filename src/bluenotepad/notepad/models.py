@@ -18,6 +18,7 @@ class Notepad(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
+    daily_report_template = models.TextField()
 
     def __str__(self):
         return unicode(self).encode('utf-8')
@@ -30,33 +31,16 @@ class Notepad(models.Model):
         self.uuid = re.sub('[-=]', '', text)
 
 
-class StatDefinition(models.Model):
-    notepad = models.ForeignKey(Notepad)
-    created_at = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    rules = models.TextField()
-    
-    
 class DailyStats(models.Model):
     notepad = models.ForeignKey(Notepad)
     day = models.DateField()
     event_count = models.IntegerField(default=0)
     session_count = models.IntegerField(default=0)
     notes = models.TextField()
+    report = models.TextField()
 
     def __str__(self):
         return unicode(self).encode('utf-8')
 
     def __unicode__(self):
         return u'%s %s' % (self.notepad, self.day)
-
-    
-class StatData(models.Model):
-    daily_stats = models.ForeignKey(DailyStats)
-    title = models.CharField(max_length=200)
-    rules = models.TextField()
-    value = models.IntegerField(default=0)
-    
-    
-    
