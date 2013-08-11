@@ -41,7 +41,6 @@ class Command(BaseCommand):
         report = ''
         event_count = sum([len(events) for events in sessions.itervalues()])
         variables = parseReportModel(notepad.report_model)
-        print variables
         data = defaultdict(int)
         for records in sessions.itervalues():
             for record in records:
