@@ -38,14 +38,13 @@ def analyze_sessions(filename):
 def analyze_events(filename):
     sessions = read_sessions(filename)
 #    long_sessions = {k:v for k,v in sessions.iteritems() if len(v) > 200}
-    count_events(sessions, ['Insert module'])
-    count_events(sessions, ['Module repositioned'])
-    count_events(sessions, ['Remove module'])
-    count_events(sessions, ['Change page height'])
-    count_events(sessions, ['Duplicate page'])
-    count_events(sessions, ['Show preview'])
-    count_events(sessions, ['Paste module'])
     count_events(sessions, ['Save'])
+    count_events(sessions, ['Show preview'])
+    count_events(sessions, ['Module repositioned'])
+    count_events(sessions, ['Change page height'])
+    count_events(sessions, ['Paste module'])
+    count_events(sessions, ['Module removed'])
+    count_events(sessions, ['Remove page'])
     print 'All events: %d' % sum([len(v) for v in sessions.itervalues()])
 
 

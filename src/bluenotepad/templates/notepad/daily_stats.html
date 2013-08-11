@@ -8,6 +8,7 @@
 			<th>Date</th>
 			<th>Sessions</th>
 			<th>Events</th>
+			<th>Report</th>
 			<th>Notes</th>
 			<th>Actions</th>
 		</tr>
@@ -17,6 +18,7 @@
 				<td>{{stat.day}}</td>
 				<td>{{stat.session_count}}</td>
 				<td>{{stat.event_count}}</td>
+				<td>{{stat.report_data|linebreaks}}
 				<td>{{stat.notes|linebreaks}}
 				<div style='display:none' id="text_{{forloop.counter}}">{{stat.notes}}</div>
 				</td>
