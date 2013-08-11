@@ -69,10 +69,5 @@ def analyze(filenames, fun):
 
 
 if __name__ == '__main__':
-#    analyze_sessions(DATA_ROOT + '2013-08-06.log')
-#    analyze_events(DATA_ROOT + '2013-08-07.log')
-#    analyze_event_frequency(DATA_ROOT + '2013-08-06.log')
-#    analyze_event_frequency(DATA_ROOT + '2013-08-07.log')
-#    analyze_event_frequency(DATA_ROOT + '2013-08-08.log')
     files = ['2013-08-06', '2013-08-07', '2013-08-08', '2013-08-09']
-    analyze(files, analyze_sessions)
+    analyze(files, analyze_events)

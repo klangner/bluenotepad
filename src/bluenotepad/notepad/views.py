@@ -50,7 +50,7 @@ def create_notepad(request):
             notepad.assignID()
             notepad.owner = request.user
             notepad.title = form.cleaned_data['title']
-            notepad.description = form.cleaned_data['info']
+            notepad.description = form.cleaned_data['description']
             notepad.save()
             return HttpResponseRedirect('/notepad')
     return render_to_response('notepad/create_notepad.html', {'form':form}, 
@@ -65,23 +65,6 @@ def stats(request, notepad_id):
                               {'notepad': notepad,
                                'stats': stats,
                                'active_tab': 'stats'},
-                              context_instance=RequestContext(request))
-
-
-@login_required
-def sessions(request, notepad_id):
-    notepad = get_object_or_404(Notepad, pk=notepad_id)
-#    today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
-#    yesterday = today - timedelta(days=1)
-    sessions = []
-    bins = [0]*20
-    for sessions in sessions:
-        index = min(sessions.events/10, 19)
-        bins[index] += 1
-    return render_to_response('notepad/sessions.html', 
-                              {'notepad': notepad,
-                               'bins': bins,
-                               'active_tab': 'session_stats'},
                               context_instance=RequestContext(request))
 
 
@@ -128,8 +111,16 @@ def download(request, notepad_id):
 @login_required
 def settings(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
+    form = None
+    if request.method == 'POST':
+        form = NotepadForm(request.POST)
+        if form.is_valid():
+            notepad.title = form.cleaned_data['title']
+            notepad.description = form.cleaned_data['description']
+            notepad.report_model = form.cleaned_data['report_model']
+            notepad.save()
     return render_to_response('notepad/settings.html', 
                               {'notepad': notepad,
-                               'stats': stats,
+                               'form': form,
                                'active_tab': 'settings'},
                               context_instance=RequestContext(request))

@@ -18,7 +18,7 @@ class Notepad(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
-    daily_report_template = models.TextField()
+    report_model = models.TextField(default='')
 
     def __str__(self):
         return unicode(self).encode('utf-8')
@@ -36,8 +36,8 @@ class DailyStats(models.Model):
     day = models.DateField()
     event_count = models.IntegerField(default=0)
     session_count = models.IntegerField(default=0)
-    notes = models.TextField()
-    report = models.TextField()
+    notes = models.TextField(default='')
+    report_data = models.TextField(default='')
 
     def __str__(self):
         return unicode(self).encode('utf-8')

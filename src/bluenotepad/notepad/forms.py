@@ -4,15 +4,10 @@ from django import forms
 
 class NotepadForm(forms.Form):
     title = forms.CharField()
-    info = forms.CharField(required=False)
+    description = forms.CharField(required=False)
+    report_model = forms.CharField(required=False)
 
 
 class NoteForm(forms.Form):
     noteID = forms.CharField()
     noteText = forms.CharField()
-
-
-class StatDefinitionForm(forms.Form):
-    title = forms.CharField()
-    description = forms.CharField()
-    rules = forms.CharField()
