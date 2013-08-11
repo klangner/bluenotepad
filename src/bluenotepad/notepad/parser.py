@@ -18,7 +18,7 @@ def parseReportModel(text):
                 m = re.search('\{([^\{]+)\}', tokens[1])
                 if m:
                     value = m.group(1)
-                    variables[name] = value.split(',')
+                    variables[name] = [x.strip() for x in value.split(',')]
     return variables
     
     
