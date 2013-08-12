@@ -28,7 +28,7 @@
 	</table>
 
 	<div id="editModal" class="modal hide fade">
-		<form class="modal-form" action="edit_note" method="post">
+		<form class="modal-form" action="{{notepad.id}}/edit_note" method="post">
 			<div class="modal-header">Notes</div>
 			<div class="modal-body">
 				{% csrf_token %}

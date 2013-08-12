@@ -35,6 +35,8 @@ def analyze_sessions(filename):
     print( 'All sessions: %d' % len(sessions))
 
 
+# Sprawdzić czy są pomyłki przy wstawianiu modułów:
+#  - Wstawienie modułu -> usunięcie -> Wstawienie noweg
 def analyze_events(filename):
     sessions = read_sessions(filename)
 #    long_sessions = {k:v for k,v in sessions.iteritems() if len(v) > 200}
