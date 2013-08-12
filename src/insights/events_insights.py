@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 05-08-2013
 
@@ -22,21 +23,6 @@ def count_events(sessions, events):
     return events_counter
 
 
-def analyze_sessions(filename):
-    sessions = read_sessions(filename)
-    counter, counter2 = 0, 0
-    for events in sessions.itervalues():
-        if len(events) == 1:
-            counter += 1
-        elif len(events) == 2:
-            counter2 += 1
-    print( 'Single event sessions: %d' % counter)
-    print( 'Double events sessions: %d' % counter2)
-    print( 'All sessions: %d' % len(sessions))
-
-
-# Sprawdzić czy są pomyłki przy wstawianiu modułów:
-#  - Wstawienie modułu -> usunięcie -> Wstawienie noweg
 def analyze_events(filename):
     sessions = read_sessions(filename)
 #    long_sessions = {k:v for k,v in sessions.iteritems() if len(v) > 200}

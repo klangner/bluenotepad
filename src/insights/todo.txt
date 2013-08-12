@@ -1,0 +1,6 @@
+- Sprawdzić czy są pomyłki przy wstawianiu modułów.
+    (Wstawienie modułu -> usunięcie -> Wstawienie nowego)
+    
+- Czy uzywany jest dialog do wstawienia nowego modułu?
+
+- Czy da się posegmentować sesje na dotyczące edycji i tworzenia nowego materiału?
