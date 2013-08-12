@@ -23,7 +23,7 @@ class Command(BaseCommand):
         today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
         yesterday = today - timedelta(days=1)
         file_date = yesterday.strftime("%Y-%m-%d")
-        counter = 0 
+        counter, session_counter = 0, 0 
         for notepad in notepads:
             filename = FILE_STORAGE + notepad.uuid + "/" + file_date + ".log"
             sessions = read_sessions(filename)
@@ -34,8 +34,10 @@ class Command(BaseCommand):
             stats.report_data = self.createReport(sessions, notepad)
             stats.save()
             counter += 1
+            session_counter += 1
             self.compressLog(filename)
-        self.stdout.write('Aggregate command processed %d notepads\n' % (counter))
+        self.stdout.write('Aggregate command processed:\n')
+        self.stdout.write('%d notepads (%d sessions)\n' % (counter, session_counter))
         
     def createReport(self, sessions, notepad):
         report = ''
@@ -48,7 +50,7 @@ class Command(BaseCommand):
                     if record['event'] in var_events:
                         data[var_name] += 1
         for key, value in data.iteritems():
-            report += ('%s: %d (%d%%)\n' % (key, value, (value*100)/event_count))
+            report += ('%s: %d (%.2f%%)\n' % (key, value, (value*100)/event_count))
         return report
         
     def compressLog(self, filename):
