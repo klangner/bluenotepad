@@ -36,7 +36,7 @@ class Command(BaseCommand):
             if len(sessions) > 0:
                 counter += 1
             self.compressLog(filename)
-        self.stdout.write('rocessed: %d notepads\n' % (counter))
+        self.stdout.write('processed: %d notepads\n' % (counter))
         
     def createReport(self, sessions, notepad):
         report = ''
