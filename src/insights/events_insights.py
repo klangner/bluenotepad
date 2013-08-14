@@ -55,6 +55,15 @@ def analyze(filenames, fun):
         print '\n'
 
 
+def calculate_waste(filename):
+        sessions = read_sessions(filename)
+        waste = ['Preferences', 'Export page', 'Page down', 'Start', 
+                 'Bring to front', 'Duplicate page', 'Save', 'Copy module', 
+                 'Page up', 'Module repositioned', 'Paste module', 'Show preview', 
+                 'Module removed', 'Change page height', 'Import page', 
+                 'Remove module', 'Remove page', 'Send back']
+        count_events(sessions, waste)
+
 if __name__ == '__main__':
-    files = ['2013-08-06', '2013-08-07', '2013-08-08', '2013-08-09']
-    analyze(files, analyze_events)
+    files = ['2013-08-07', '2013-08-08', '2013-08-09', '2013-08-12', '2013-08-13']
+    analyze(files, calculate_waste)
