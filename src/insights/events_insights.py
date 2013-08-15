@@ -7,6 +7,8 @@ Created on 05-08-2013
 from collections import defaultdict
 from bluenotepad.storage.log import read_sessions
 import os
+import pylab as plt
+
 
 DATA_ROOT = os.path.join(os.path.dirname(__file__), '../../data/')
 
@@ -18,9 +20,10 @@ def count_events(sessions, events):
             all_events_counter += 1
             if record['event'] in events:
                 events_counter += 1
-    pct = events_counter*100/all_events_counter
-    print("%s: %d (%d%%)" % (events[0], events_counter, pct))    
-    return events_counter
+    if all_events_counter > 0:
+        pct = events_counter*100/all_events_counter
+        print("%s: %d (%d%%)" % (events[0], events_counter, pct))    
+    return events_counter, all_events_counter
 
 
 def analyze_events(filename):
@@ -44,6 +47,7 @@ def analyze_event_frequency(filename):
         for record in records:
             name = record['event']
             events[name] += 1
+    print len(events)
     for name, counter in events.iteritems():
         print name, ":\t", counter
 
@@ -55,15 +59,37 @@ def analyze(filenames, fun):
         print '\n'
 
 
+def analyze_folder(path, fun):
+    for filename in os.listdir(path):
+        print filename
+        fun(path + filename)
+        print '\n'
+        
+        
 def calculate_waste(filename):
-        sessions = read_sessions(filename)
-        waste = ['Preferences', 'Export page', 'Page down', 'Start', 
-                 'Bring to front', 'Duplicate page', 'Save', 'Copy module', 
-                 'Page up', 'Module repositioned', 'Paste module', 'Show preview', 
-                 'Module removed', 'Change page height', 'Import page', 
-                 'Remove module', 'Remove page', 'Send back']
-        count_events(sessions, waste)
+    sessions = read_sessions(filename)
+    waste = ['Preferences', 'Export page', 'Page down', 'Start', 
+             'Bring to front', 'Duplicate page', 'Save', 'Copy module', 
+             'Page up', 'Module repositioned', 'Paste module', 'Show preview', 
+             'Module removed', 'Change page height', 'Import page', 
+             'Remove module', 'Remove page', 'Send back']
+    return count_events(sessions, waste)
+
+
+def plot_waste(folder):
+    waste = []
+    for filename in os.listdir(folder):
+        print filename
+        waste_events, all_events = calculate_waste(folder+filename) 
+        waste.append(waste_events*100.0/all_events)
+    plt.ylabel('Waste percentage')
+    plt.xlabel('Day')
+    plt.title('Waste percentage per day')
+    plt.plot(waste)
+    plt.ylim([0,100])
+    plt.show()
+
 
 if __name__ == '__main__':
-    files = ['2013-08-07', '2013-08-08', '2013-08-09', '2013-08-12', '2013-08-13']
-    analyze(files, calculate_waste)
+#    analyze_folder(DATA_ROOT, analyze_event_frequency)
+    plot_waste(DATA_ROOT)
