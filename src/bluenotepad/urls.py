@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.simple.urls')),
     (r'^api/', include('bluenotepad.api.urls')),                            
     (r'^notepad/', include('bluenotepad.notepad.urls')),
+    (r'^public/', include('bluenotepad.public.urls')),
 
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),    
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
