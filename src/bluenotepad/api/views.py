@@ -26,4 +26,6 @@ def log(request):
             data[key] = request.GET[key] 
     log_file.write(json.dumps(data) + "\n")
     log_file.close()
-    return HttpResponse('')
+    response = HttpResponse('')
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
