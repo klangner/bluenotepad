@@ -23,12 +23,14 @@ def analyze_sessions(filename, threshold):
 def session_histogram(filename):
     sessions = read_sessions(filename)
     data = [min(len(events),200) for events in sessions.itervalues()]
+#    data = [len(events) for events in sessions.itervalues()]
     plt.ylabel('Number of sessions')
     plt.xlabel('Number of actions')
     plt.title('Histogram of session activity')
     plt.hist(data, bins=20, range=[0, 200])
+#    plt.hist(data, log=True)
     plt.show()
 
 if __name__ == '__main__':
-    analyze_sessions(DATA_ROOT + '2013-08-14.log', 2)
-#    session_histogram(DATA_ROOT + '2013-08-14.log')
+#    analyze_sessions(DATA_ROOT + '2013-08-14.log', 2)
+    session_histogram(DATA_ROOT + '2013-08-14.log')

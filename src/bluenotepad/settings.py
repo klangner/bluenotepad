@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django settings for naukaslowek project.
+from local_settings import LOCAL_DATABASES, LOCAL_DEBUG, LOCAL_FILE_STORAGE, LOCAL_SECRET_KEY
 import os
-from local_settings import LOCAL_DATABASES, LOCAL_DEBUG, LOCAL_FILE_STORAGE
 
 DEBUG = LOCAL_DEBUG
 DATABASES = LOCAL_DATABASES
@@ -84,7 +84,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '&fj6#oux=o(@u1=b!&4!()uk#0ehe$ukpt5%fqs(x39=52xt9v'
+SECRET_KEY = LOCAL_SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

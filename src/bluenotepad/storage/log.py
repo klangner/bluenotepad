@@ -16,7 +16,6 @@ def read_sessions(filename):
                 event = json.loads(line)
                 session_name = event['session']
                 sessions[session_name].append(event)
-            f.close()
     except IOError:
         pass
     return sessions
@@ -35,3 +34,14 @@ def read_recent_events(filename):
     except IOError:
         pass
     return events
+
+
+def read_folder_sessions(folder):
+    sessions = defaultdict(list)
+    for filename in os.listdir(folder):
+        with open(folder+filename, "r") as f:
+            for line in f:
+                event = json.loads(line)
+                session_name = event['session']
+                sessions[session_name].append(event)
+    return sessions

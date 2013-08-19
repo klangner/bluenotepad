@@ -4,3 +4,5 @@
 - Czy uzywany jest dialog do wstawienia nowego modułu?
 
 - Czy da się posegmentować sesje na dotyczące edycji i tworzenia nowego materiału?
+
+- Czy możliwe, że pojedyńcze sesje są wynikiem sypania się aplikacji? Ile jest sesji bez zamknięcia?
