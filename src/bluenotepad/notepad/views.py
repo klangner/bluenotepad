@@ -78,23 +78,6 @@ def edit_note(request, notepad_id):
             stats.notes = form.cleaned_data['noteText']
             stats.save()
     return HttpResponseRedirect('stats')
-
-
-@login_required
-def files(request, notepad_id):
-    notepad = get_object_or_404(Notepad, pk=notepad_id)
-    files = []
-    try:
-        for f in os.listdir(FILE_STORAGE + notepad.uuid):
-            if f.endswith('.gz'):
-                files.append(f)
-    except OSError:
-        pass
-    return render_to_response('notepad/files.html', 
-                              {'notepad': notepad,
-                               'files': sorted(files, reverse=True),
-                               'active_tab': 'files'},
-                              context_instance=RequestContext(request))
     
     
 @login_required

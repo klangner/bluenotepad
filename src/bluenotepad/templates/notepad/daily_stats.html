@@ -22,7 +22,12 @@
 				<td>{{stat.notes|linebreaks}}
 				<div style='display:none' id="text_{{forloop.counter}}">{{stat.notes}}</div>
 				</td>
-				<td><button type="button" onClick='showEditor("{{stat.id}}","text_{{forloop.counter}}")'>Edit</button></td>
+				<td>
+					<button type="button" onClick='showEditor("{{stat.id}}","text_{{forloop.counter}}")'>Edit</button>
+					{% if stat.event_count > 0 %}
+						<a href='/notepad/{{notepad.id}}/download?file={{stat.day|date:'Y-m-d'}}.log.gz'>Download</a>
+					{% endif %}
+				</td>
 			</tr>
 		{% endfor %}
 	</table>

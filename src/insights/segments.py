@@ -32,5 +32,5 @@ def session_histogram(filename):
     plt.show()
 
 if __name__ == '__main__':
-#    analyze_sessions(DATA_ROOT + '2013-08-14.log', 2)
-    session_histogram(DATA_ROOT + '2013-08-14.log')
+    analyze_sessions(DATA_ROOT + '2013-08-20.log', 3)
+#    session_histogram(DATA_ROOT + '2013-08-14.log')

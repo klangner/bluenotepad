@@ -72,7 +72,7 @@ def calculate_waste(filename):
              'Bring to front', 'Duplicate page', 'Save', 'Copy module', 
              'Page up', 'Module repositioned', 'Paste module', 'Show preview', 
              'Module removed', 'Change page height', 'Import page', 
-             'Remove module', 'Remove page', 'Send back']
+             'Remove module', 'Remove page', 'Send back', 'Page loaded']
     return count_events(sessions, waste)
 
 
@@ -91,5 +91,8 @@ def plot_waste(folder):
 
 
 if __name__ == '__main__':
+    sessions = read_sessions(DATA_ROOT + '2013-08-20.log')
+    count_events(sessions, ['Page loaded'])
+    calculate_waste(DATA_ROOT + '2013-08-20.log')
 #    analyze_folder(DATA_ROOT, analyze_event_frequency)
-    plot_waste(DATA_ROOT)
+#    plot_waste(DATA_ROOT)
