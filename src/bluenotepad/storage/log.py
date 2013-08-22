@@ -8,6 +8,8 @@ from collections import defaultdict
 import json
 import os.path
 
+PREVIEW_LOG_SIZE = 30000
+
 def read_sessions(filename):
     sessions = defaultdict(list)
     try:
@@ -21,19 +23,22 @@ def read_sessions(filename):
     return sessions
 
 
-def read_recent_events(filename):
-    events = []
+def read_recent_sessions(filename):
+    sessions = defaultdict(list)
     try:
         with open(filename, "r") as f:
             size = os.path.getsize(filename)
-            if size > 8000:
-                f.seek(size-8000)
+            if size > PREVIEW_LOG_SIZE:
+                f.seek(size-PREVIEW_LOG_SIZE)
                 f.readline()
             for line in f.readlines():
-                events.append(json.loads(line))
+                event = json.loads(line)
+                session_name = event['session']
+                sessions[session_name].append(event)
     except IOError:
         pass
-    return events
+    sessions.default_factory = None
+    return sessions
 
 
 def read_folder_sessions(folder):

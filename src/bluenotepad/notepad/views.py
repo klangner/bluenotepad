@@ -13,8 +13,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 import datetime
-import os
-from bluenotepad.storage.log import read_recent_events
+from bluenotepad.storage.log import read_recent_sessions
 
 
 @login_required
@@ -30,12 +29,13 @@ def recent_sessions(request, notepad_id):
     notepad = get_object_or_404(Notepad, pk=notepad_id)
     today = datetime.datetime.now().strftime("%Y-%m-%d")
     filename = FILE_STORAGE + notepad.uuid + "/" + today + ".log" 
-    events = read_recent_events(filename)
-    for event in events:
-        event['time'] = datetime.datetime.strptime(event['time'], "%Y-%m-%dT%H:%M:%S")
+    sessions = read_recent_sessions(filename)
+    for events in sessions.itervalues():
+        for event in events:
+            event['time'] = datetime.datetime.strptime(event['time'], "%Y-%m-%dT%H:%M:%S")
     return render_to_response('notepad/recent_sessions.html', 
                               {'notepad': notepad,
-                               'sessions': reversed(events),
+                               'sessions': sessions,
                                'active_tab': 'recent'},
                               context_instance=RequestContext(request))
 

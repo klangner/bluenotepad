@@ -1,22 +1,27 @@
 {% extends "notepad/notepad_base.html" %}
 
 {% block tab_content %}
-	<table class="table table-bordered table-striped">
-		<tr>
-			<th>#</th>
-			<th>Session</th>
-			<th>Created</th>
-			<th>Event</th>
-		</tr>
-		{% for session in sessions %}
+	{% for session_name, events in sessions.items %}
+		<h3>Session: {{session_name}}</h3>
+		<table class="table table-bordered table-striped">
 			<tr>
-				<td>{{forloop.counter}}</td>
-				<td>{{session.session}}</td>
-				<td>{{session.time|timesince}} ago.</td>
-				<td>{{session.event}}</td>
+				<th>#</th>
+				<th>Created</th>
+				<th>Event</th>
+				<th>Module</th>
+				<th>Property</th>
 			</tr>
-		{% endfor %}
-	</table>
+			{% for event in events %}
+				<tr>
+					<td>{{forloop.counter}}</td>
+					<td>{{event.time|timesince}} ago.</td>
+					<td>{{event.event}}</td>
+					<td>{{event.module}}</td>
+					<td>{{event.property}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endfor %}
 
 {% endblock %}
 
