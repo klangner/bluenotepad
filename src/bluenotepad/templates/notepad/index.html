@@ -19,7 +19,7 @@
 	<tr>	
 		<td><a href="/notepad/{{notepad.id}}/stats">{{notepad.title}}</a></td>
 		<td>{{notepad.uuid}}</td>
-		<td>{{notepad.created_at}}</td>
+		<td>{{notepad.created_at|date:'Y-m-d'}}</td>
 		<td>{{notepad.description}}</td>
 	</tr>
 	{% endfor %}

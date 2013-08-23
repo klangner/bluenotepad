@@ -44,3 +44,11 @@ class DailyStats(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.notepad, self.day)
+
+
+class Report(models.Model):
+    notepad = models.ForeignKey(Notepad)
+    title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    code = models.TextField()

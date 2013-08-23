@@ -1,0 +1,30 @@
+{% extends "notepad/notepad_base.html" %}
+
+{% block tab_content %}
+
+<h1>Reports</h1>
+
+<div class="btn-group navbar">
+    <a class="btn btn-primary" href="create_report">Create new report</a>
+</div>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Title</th>
+		<th>Last modified</th>
+		<th>Action</th>
+	</tr>
+	{% for report in reports %}
+	<tr>	
+		<td><a href="execute_report/{{report.id}}">{{report.title}}</a></td>
+		<td>{{report.modified_at|date:'Y-m-d H:m'}}</td>
+		<td>
+			<a class="btn" href='execute_report/{{report.id}}'>Execute</a>
+			<a class="btn" href='edit_report/{{report.id}}'>Edit</a>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+	
+{% endblock %}
+

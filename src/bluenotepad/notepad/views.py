@@ -4,21 +4,21 @@ Created on 2012-12-01
 
 @author: Krzysztof Langner
 '''
-from bluenotepad.notepad.forms import NotepadForm, NoteForm
-from bluenotepad.notepad.models import Notepad, DailyStats
+from bluenotepad.notepad.forms import NotepadForm, NoteForm, ReportForm
+from bluenotepad.notepad.models import Notepad, DailyStats, Report
 from bluenotepad.settings import FILE_STORAGE
+from bluenotepad.storage.log import read_recent_sessions
 from django.contrib.auth.decorators import login_required
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 import datetime
-from bluenotepad.storage.log import read_recent_sessions
 
 
 @login_required
 def index(request):
-    notepads = Notepad.objects.filter(owner=request.user).order_by('-created_at')
+    notepads = Notepad.objects.filter(owner=request.user).order_by('title')
     return render_to_response('notepad/index.html', 
                               {'notepads':notepads},
                               context_instance=RequestContext(request))
@@ -106,4 +106,65 @@ def settings(request, notepad_id):
                               {'notepad': notepad,
                                'form': form,
                                'active_tab': 'settings'},
+                              context_instance=RequestContext(request))
+
+
+@login_required
+def reports(request, notepad_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    reports = Report.objects.filter(notepad=notepad).order_by('-modified_at')
+    return render_to_response('notepad/reports.html', 
+                              {'notepad': notepad,
+                               'reports': reports,
+                               'active_tab': 'reports'},
+                              context_instance=RequestContext(request))
+
+
+@login_required
+def create_report(request, notepad_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    form = None
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            report = Report(notepad=notepad)
+            report.title = form.cleaned_data['title']
+            report.code = form.cleaned_data['code']
+            report.save()
+            return HttpResponseRedirect('report')
+    return render_to_response('notepad/create_report.html', 
+                              {'form':form,
+                               'notepad': notepad,
+                               'active_tab': 'reports'}, 
+                              context_instance=RequestContext(request))
+
+
+@login_required
+def edit_report(request, notepad_id, report_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    report = get_object_or_404(Report, pk=report_id)
+    form = None
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            report.title = form.cleaned_data['title']
+            report.code = form.cleaned_data['code']
+            report.save()
+            return HttpResponseRedirect('/notepad/%s/report' % notepad_id)
+    return render_to_response('notepad/edit_report.html', 
+                              {'form':form,
+                               'notepad': notepad,
+                               'report':report,
+                               'active_tab': 'reports'}, 
+                              context_instance=RequestContext(request))
+
+
+@login_required
+def execute_report(request, notepad_id, report_id):
+    notepad = get_object_or_404(Notepad, pk=notepad_id)
+    report = get_object_or_404(Report, pk=report_id)
+    return render_to_response('notepad/execute_report.html', 
+                              {'notepad': notepad,
+                               'report':report,
+                               'active_tab': 'reports'}, 
                               context_instance=RequestContext(request))

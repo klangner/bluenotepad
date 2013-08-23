@@ -20,6 +20,11 @@
     		{% else %}
     			<li><a href="/notepad/{{notepad.id}}/recent">Recent events</a></li>
     		{% endif%}
+    		{% if active_tab == 'reports' %}
+    			<li class="active"><a href="#"><b>Reports</b></a></li>
+    		{% else %}
+    			<li><a href="/notepad/{{notepad.id}}/report">Reports</a></li>
+    		{% endif%}
     		{% if active_tab == 'settings' %}
     			<li class="active"><a href="#"><b>Settings</b></a></li>
     		{% else %}

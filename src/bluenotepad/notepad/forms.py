@@ -11,3 +11,9 @@ class NotepadForm(forms.Form):
 class NoteForm(forms.Form):
     noteID = forms.CharField()
     noteText = forms.CharField()
+
+
+class ReportForm(forms.Form):
+    title = forms.CharField()
+    code = forms.CharField()
+    code = forms.CharField(required=False)

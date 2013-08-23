@@ -1,0 +1,12 @@
+{% extends "notepad/notepad_base.html" %}
+
+{% block tab_content %}
+
+<p><a href="/notepad/{{notepad.id}}/report">All reports</a> / {{report.title}}</p>
+
+<div>
+{{report.code}}
+</div>
+
+{% endblock %}
+

@@ -1,8 +1,26 @@
-- Sprawdzić czy są pomyłki przy wstawianiu modułów.
-    (Wstawienie modułu -> usunięcie -> Wstawienie nowego)
-    
-- Czy uzywany jest dialog do wstawienia nowego modułu?
+TODO
+-------------------------------------------------------------------------------
+* Sprawdzić czy są pomyłki przy wstawianiu modułów.
+  (Wstawienie modułu -> usunięcie -> Wstawienie nowego)
+* Czy uzywany jest dialog do wstawienia nowego modułu?
+* Czy da się posegmentować sesje na dotyczące edycji i tworzenia nowego materiału?
+* Tooltipy nad nazwami property. Czy jest potrzebny dodatkowy help? Jak to zmierzyć?
+* Statyczna analiza kodu strony i pokazywanie znalezionych błędów. 
+  Liczyć użycie by sprawdzić przydatność
 
-- Czy da się posegmentować sesje na dotyczące edycji i tworzenia nowego materiału?
 
-- Czy możliwe, że pojedyńcze sesje są wynikiem sypania się aplikacji? Ile jest sesji bez zamknięcia?
+SKRYPT
+-------------------------------------------------------------------------------
+* Stosowanie feedbacków bez skryptu
+* Skrypt jako integralna funkcjonalność strony (bez osadzania modułu)
+* Strona w stronie (by otrzymać modułowość)
+* Definiowanie nowych modułów jak podstron (własne property itp.)
+* Skrypt jako state machine
+
+
+DONE
+-------------------------------------------------------------------------------
+Ad1. Czy możliwe, że pojedyńcze sesje są wynikiem sypania się aplikacji? Ile jest sesji bez zamknięcia?
+Po dołożeniu monitorowania postępów otwierania edytora. 
+Okazało się, że są były 2 sesje, w ciągu dnia, w których nie doszło do załadowania pierwszej strony.
+
