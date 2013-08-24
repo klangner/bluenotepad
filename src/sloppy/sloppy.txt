@@ -1,0 +1,21 @@
+Sloppy programming
+-------------------------------------------------------------------------------
+
+1. Określenie zakresu danych podlegających analizie
+
+Use data from 2013-08-14
+Use data from 2013-08-14 to 2013-08-14
+
+
+2. Rysowanie wykresów
+
+Plot session per day histogram
+
+
+3. Analiza danych
+
+Count daily number of Save event
+Is there any XXX event?
+Are there any patterns?
+  - Takie same eventy po sobie
+  - Takie same sekwencje eventów po sobie

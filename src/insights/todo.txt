@@ -18,6 +18,17 @@ SKRYPT
 * Skrypt jako state machine
 
 
+INNE
+-------------------------------------------------------------------------------
+* Wyszukiwanie podobnych fragmentów w innych lekcjach. Jak opisać to co się chce wyszukać?
+  Przykład: Znajdż prezentację z przyciskami przełaczającymi wideo.
+* Oznaczanie grup modułów jako komponentów oraz opisanie ich metadanymi. 
+  Takie komponenty mogą być później użyte w innych lekcjach
+* Whyline: W przypadku wystąpienia błędu w skrypcie (np. nie odblokowana gapa). 
+  Można zatrzymać skrypt i zapytać dlaczego tak się to wydarzyło. I zostanie 
+  pokazana ścieżka wykonania do tego momentu  
+
+
 DONE
 -------------------------------------------------------------------------------
 Ad1. Czy możliwe, że pojedyńcze sesje są wynikiem sypania się aplikacji? Ile jest sesji bez zamknięcia?

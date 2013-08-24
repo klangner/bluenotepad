@@ -14,29 +14,30 @@ DATA_ROOT = os.path.join(os.path.dirname(__file__), '../../data/')
 
 
 def count_events(sessions, events):
-    all_events_counter, events_counter = 0, 0
+    all_events_counter, events_counter = 0.0, 0.0
     for records in sessions.itervalues():
         for record in records:
             all_events_counter += 1
             if record['event'] in events:
                 events_counter += 1
     if all_events_counter > 0:
+        events_per_session = events_counter/len(sessions)
         pct = events_counter*100/all_events_counter
-        print("%s: %d (%d%%)" % (events[0], events_counter, pct))    
+        print("%s: %d (%.2f%%) %.2f" % (events[0], events_counter, pct, events_per_session))    
     return events_counter, all_events_counter
 
 
 def analyze_events(filename):
     sessions = read_sessions(filename)
-#    long_sessions = {k:v for k,v in sessions.iteritems() if len(v) > 200}
+#    sessions = {k:v for k,v in sessions.iteritems() if len(v) > 10}
     count_events(sessions, ['Save'])
     count_events(sessions, ['Show preview'])
     count_events(sessions, ['Module repositioned'])
-    count_events(sessions, ['Change page height'])
-    count_events(sessions, ['Paste module'])
-    count_events(sessions, ['Module removed'])
-    count_events(sessions, ['Remove page'])
-    print 'All events: %d' % sum([len(v) for v in sessions.itervalues()])
+#    count_events(sessions, ['Change page height'])
+    count_events(sessions, ['Module edited'])
+#    count_events(sessions, ['Module removed'])
+#    count_events(sessions, ['Remove page'])
+    print 'Events: %d Sessions: %d' % (sum([len(v) for v in sessions.itervalues()]), len(sessions))
 
 
 
@@ -91,8 +92,8 @@ def plot_waste(folder):
 
 
 if __name__ == '__main__':
-    sessions = read_sessions(DATA_ROOT + '2013-08-20.log')
-    count_events(sessions, ['Page loaded'])
-    calculate_waste(DATA_ROOT + '2013-08-20.log')
-#    analyze_folder(DATA_ROOT, analyze_event_frequency)
+#    sessions = read_sessions(DATA_ROOT + '2013-08-20.log')
+#    count_events(sessions, ['Page loaded'])
+#    calculate_waste(DATA_ROOT + '2013-08-20.log')
+    analyze_folder(DATA_ROOT, analyze_events)
 #    plot_waste(DATA_ROOT)
