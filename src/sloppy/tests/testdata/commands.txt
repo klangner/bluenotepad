@@ -1,0 +1,7 @@
+# Lista komend z wartościmi oczekiwanymi
+
+ala ma kota -> not recognized
+count events -> 18761
+count sessions -> 366
+#count event -> 18761
+#How many events are there? -> 18761

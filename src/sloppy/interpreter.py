@@ -11,38 +11,65 @@ print session count
 print last 20 events
 '''
 from sloppy.nlp import tokenize
+import json
 import os.path
 
-class CommandsPrinter(object):
+
+class DefaultCommands(object):
     
     def notRecognized(self):
         print('command not recognized')
     
-    def printSessionCount(self):
-        print('print session count')
+    def printEventCount(self, events):
+        print('Events: %d' % len(events))
+    
+    def printSessionCount(self, events):
+        sessions = set()
+        for event in events:
+            sessions.add(event['session'])
+        print('Sessions: %d' % len(sessions))
         
 
 class Runtime():
     
     def __init__(self, filename, commands=None):
-        self.data = None
+        self.data = self._loadData(filename)
         if commands:
             self.commands = commands
         else:
-            self.commands = CommandsPrinter()
+            self.commands = DefaultCommands()
+            
+    def _loadData(self, filename):
+        events = []
+        with open(filename, "r") as f:
+            for line in f:
+                event = json.loads(line)
+                events.append(event)
+        return events        
         
     def execute(self, command):
-        tokens = tokenize(command)
-        if self._contains(tokens, ['print', 'count', 'sessions']):
-            self.commands.printSessionCount()
+        tokens = self._parseCommand(command)
+        if self._contains(tokens, ['count', 'events']):
+            self.commands.printEventCount(self.data)
+        elif self._contains(tokens, ['count', 'sessions']):
+            self.commands.printSessionCount(self.data)
         else:
             self.commands.notRecognized()
             
+    def _parseCommand(self, command):
+        return tokenize(command.lower())
+            
     def _contains(self, tokens, words):
-        return False
+        count = 0
+        for word in words:
+            for token in tokens:
+                if word == token:
+                    count += 1
+                    break
+        return count == len(words)
     
 
 if __name__ == '__main__':
     filename = os.path.join(os.path.dirname(__file__), 'tests/testdata/data1.log')
     runtime = Runtime(filename)
-    runtime.execute('Count events')
+    runtime.execute('Count sessions')
