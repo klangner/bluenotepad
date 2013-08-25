@@ -8,32 +8,33 @@ from sloppy.interpreter import Runtime
 import os.path
 import unittest
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), 'testdata/data1.log')
+DATA_FOLDER = os.path.join(os.path.dirname(__file__), 'testdata/')
 COMMANDS_FILE = os.path.join(os.path.dirname(__file__), 'testdata/commands.txt')
 
 class CommandsMockup(object):
     
-    def __init__(self):
+    def __init__(self, data_folder):
+        self.data_folder = data_folder
         self.result = ''
         
+    def loadData(self, months):
+        self.result = "load " + months.join(', ')
+            
+    def printEventCount(self):
+        self.result = "event count"
+    
+    def printSessionCount(self):
+        self.result = "session count"
+
     def notRecognized(self):
         self.result = 'not recognized'
         
-    def printEventCount(self, events):
-        self.result = str(len(events))
-    
-    def printSessionCount(self, events):
-        sessions = set()
-        for event in events:
-            sessions.add(event['session'])
-        self.result = str(len(sessions))
-
 
 class Test(unittest.TestCase):
 
     def testNoCommand(self):
-        commands = CommandsMockup()
-        runtime = Runtime(DATA_FILE, commands=commands)
+        commands = CommandsMockup(DATA_FOLDER)
+        runtime = Runtime(commands)
         counter = 0
         with open(COMMANDS_FILE, "r") as commands_file:
             for line in commands_file:
@@ -47,13 +48,13 @@ class Test(unittest.TestCase):
         print('Processed %d commands' % counter)
 
     def testContainsFalse(self):
-        runtime = Runtime(DATA_FILE)
+        runtime = Runtime(CommandsMockup(DATA_FOLDER))
         tokens = ['ala', 'ma', 'kota']
         words = ['alexandra']
         self.assertFalse(runtime._contains(tokens, words))
 
     def testContainsTrue(self):
-        runtime = Runtime(DATA_FILE)
+        runtime = Runtime(CommandsMockup(DATA_FOLDER))
         tokens = ['ala', 'ma', 'kota']
         words = ['ala', 'kota']
         self.assertTrue(runtime._contains(tokens, words))
