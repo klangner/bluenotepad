@@ -49,14 +49,20 @@ class Test(unittest.TestCase):
 
     def testContainsFalse(self):
         runtime = Runtime(CommandsMockup(DATA_FOLDER))
-        tokens = ['ala', 'ma', 'kota']
-        words = ['alexandra']
+        tokens = [('ala', ''), ('ma', ''), ('kota', '')]
+        words = [('alexandra', '')]
+        self.assertFalse(runtime._contains(tokens, words))
+
+    def testContainsFalse2(self):
+        runtime = Runtime(CommandsMockup(DATA_FOLDER))
+        tokens = [('ala', ''), ('ma', ''), ('kota', 'NN')]
+        words = [('ala', ''), ('kota', 'NA')]
         self.assertFalse(runtime._contains(tokens, words))
 
     def testContainsTrue(self):
         runtime = Runtime(CommandsMockup(DATA_FOLDER))
-        tokens = ['ala', 'ma', 'kota']
-        words = ['ala', 'kota']
+        tokens = [('ala', ''), ('ma', ''), ('kota', 'NN')]
+        words = [('ala', ''), ('kota', 'NN')]
         self.assertTrue(runtime._contains(tokens, words))
 
 

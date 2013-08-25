@@ -4,16 +4,15 @@ Created on 24-08-2013
 
 @author: Krzysztof Langner
 '''
-import sloppy.nlp as nlp
+from sloppy.interpreter import Tagger
 import unittest
 
 class Test(unittest.TestCase):
 
-
-    def testTokenizer1(self):
-        sentence = 'Plot session histogram'
-        tokens = nlp.tokenize(sentence)
-        self.assertEqual(3, len(tokens))
+    def testNoTag(self):
+        tagger = Tagger()
+        tag = tagger.tag('ala')
+        self.assertEqual(('ala','NR'), tag)
 
 
 if __name__ == "__main__":

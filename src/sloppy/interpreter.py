@@ -10,9 +10,9 @@ print number of sessions
 print session count
 print last 20 events
 '''
-from sloppy.nlp import tokenize
 import json
 import os.path
+import nltk
 
 
 class DefaultCommands(object):
@@ -43,6 +43,18 @@ class DefaultCommands(object):
     def notRecognized(self, ):
         print('command not recognized')
     
+    
+class Tagger():
+    ''' 
+    Tagger codes:
+      * NR - not recognized
+      * DATE - date 
+      * OBJ - object
+      * CMD - command
+    '''
+    
+    def tag(self, word):
+        return (word, 'NR')    
         
 
 class Runtime():
@@ -52,15 +64,20 @@ class Runtime():
             
     def execute(self, command):
         tokens = self._parseCommand(command)
-        if self._contains(tokens, ['count', 'events']):
+        if self._contains(tokens, [('count', ''), ('event', '')]):
             self.commands.printEventCount()
-        elif self._contains(tokens, ['count', 'sessions']):
+        elif self._contains(tokens, [('count', ''), ('session', '')]):
             self.commands.printSessionCount()
         else:
             self.commands.notRecognized()
             
     def _parseCommand(self, command):
-        return tokenize(command.lower())
+        tokens = nltk.word_tokenize(command.lower())
+        porter = nltk.PorterStemmer()
+        stems = [porter.stem(token) for token in tokens]
+        tagger = Tagger()
+        tagged_words = [tagger.tag(stem) for stem in stems]
+        return tagged_words
             
     def _contains(self, tokens, words):
         count = 0

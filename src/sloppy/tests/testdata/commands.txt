@@ -1,7 +1,7 @@
 # Lista komend z wartościmi oczekiwanymi
 
 ala ma kota -> not recognized
-count events -> event count
+Count events -> event count
 count sessions -> session count
 #count event -> event count
 #How many events are there? -> event count
