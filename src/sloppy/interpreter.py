@@ -13,6 +13,8 @@ print last 20 events
 import json
 import os.path
 import nltk
+import dateutil.parser
+from datetime import date
 
 
 class DefaultCommands(object):
@@ -47,14 +49,25 @@ class DefaultCommands(object):
 class Tagger():
     ''' 
     Tagger codes:
-      * NR - not recognized
+      * NAME - name
       * DATE - date 
       * OBJ - object
       * CMD - command
     '''
     
     def tag(self, word):
-        return (word, 'NR')    
+        value = self._to_date(word)
+        if value:
+            return (value, 'DATE')
+        return (word, 'NAME')
+        
+    def _to_date(self, word):
+        try:
+            return dateutil.parser.parse(word)
+        except:
+            if word == 'today':
+                return date.today()
+            return False    
         
 
 class Runtime():
