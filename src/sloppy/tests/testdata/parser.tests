@@ -1,0 +1,4 @@
+# akcja1, synonim1; akcja2, synonim2 | komenda | Wartość po sparsowaniu
+
+count; event | count events | [('count', 'KEYWORD'), ('event', 'KEYWORD')]
+

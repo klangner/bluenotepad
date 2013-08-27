@@ -1,11 +1,11 @@
 # Lista komend z wartościmi oczekiwanymi
 
-ala ma kota -> not recognized
+ala ma kota -> 
 Count events -> event count
-count sessions -> session count
+
+#count sessions -> session count
 #count event -> event count
 #How many events are there? -> event count
-
 #load 2013-08-21 -> load 2013-08-21
 #Use data from 2013-08-21
 #Use 2013-08-21

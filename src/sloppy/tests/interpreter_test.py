@@ -8,33 +8,33 @@ from sloppy.interpreter import Runtime
 import os.path
 import unittest
 
-DATA_FOLDER = os.path.join(os.path.dirname(__file__), 'testdata/')
 COMMANDS_FILE = os.path.join(os.path.dirname(__file__), 'testdata/commands.txt')
+
+PARSER_KEYWORDS = [
+                   ['count'],
+                   ['events']
+                   ]
 
 class CommandsMockup(object):
     
-    def __init__(self, data_folder):
-        self.data_folder = data_folder
+    def __init__(self):
         self.result = ''
         
-    def loadData(self, months):
-        self.result = "load " + months.join(', ')
+    def loadData(self, features):
+        self.result = "load " + features
             
-    def printEventCount(self):
+    def printEventCount(self, features):
         self.result = "event count"
-    
-    def printSessionCount(self):
-        self.result = "session count"
-
-    def notRecognized(self):
-        self.result = 'not recognized'
         
 
 class Test(unittest.TestCase):
 
     def testNoCommand(self):
-        commands = CommandsMockup(DATA_FOLDER)
-        runtime = Runtime(commands)
+        runtime = Runtime()
+        commands = CommandsMockup()
+        for keywords in PARSER_KEYWORDS:
+            runtime.parser.add_keywords(keywords)
+        runtime.add_mapping([('count', 'KEYWORD'),('event', 'KEYWORD')], commands.printEventCount)
         counter = 0
         with open(COMMANDS_FILE, "r") as commands_file:
             for line in commands_file:
@@ -48,19 +48,19 @@ class Test(unittest.TestCase):
         print('Processed %d commands' % counter)
 
     def testContainsFalse(self):
-        runtime = Runtime(CommandsMockup(DATA_FOLDER))
+        runtime = Runtime()
         tokens = [('ala', ''), ('ma', ''), ('kota', '')]
         words = [('alexandra', '')]
         self.assertFalse(runtime._contains(tokens, words))
 
     def testContainsFalse2(self):
-        runtime = Runtime(CommandsMockup(DATA_FOLDER))
+        runtime = Runtime()
         tokens = [('ala', ''), ('ma', ''), ('kota', 'NN')]
         words = [('ala', ''), ('kota', 'NA')]
         self.assertFalse(runtime._contains(tokens, words))
 
     def testContainsTrue(self):
-        runtime = Runtime(CommandsMockup(DATA_FOLDER))
+        runtime = Runtime()
         tokens = [('ala', ''), ('ma', ''), ('kota', 'NN')]
         words = [('ala', ''), ('kota', 'NN')]
         self.assertTrue(runtime._contains(tokens, words))
