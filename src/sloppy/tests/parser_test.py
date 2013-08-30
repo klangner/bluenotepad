@@ -10,7 +10,7 @@ import unittest
 
 COMMANDS_FILE = os.path.join(os.path.dirname(__file__), 'testdata/parser.tests')
 
-class Test(unittest.TestCase):
+class TokenizerTest(unittest.TestCase):
 
     def testTokenizer(self):
         parser = Parser()
@@ -40,7 +40,6 @@ class Test(unittest.TestCase):
                     parser = Parser()
                     for action_list in tokens[0].split(';'):
                         parser.add_keywords(action_list.split(','))
-                    print parser.keywords
                     features = parser.parse(tokens[1])
                     self.assertEqual(tokens[2].strip(), str(features))
                     counter += 1

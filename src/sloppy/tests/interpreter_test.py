@@ -34,7 +34,10 @@ class Test(unittest.TestCase):
         commands = CommandsMockup()
         for keywords in PARSER_KEYWORDS:
             runtime.parser.add_keywords(keywords)
-        runtime.add_mapping([('count', 'KEYWORD'),('event', 'KEYWORD')], commands.printEventCount)
+        runtime.add_mapping([('count', 'KEYWORD'),('event', 'KEYWORD')], 
+                            commands.printEventCount)
+        runtime.add_mapping([('load', 'KEYWORD'),('', 'DATE')], 
+                            commands.loadData)
         counter = 0
         with open(COMMANDS_FILE, "r") as commands_file:
             for line in commands_file:

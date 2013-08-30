@@ -3,6 +3,7 @@
 ala ma kota -> 
 Count events -> event count
 
+#load 2012-08-22 -> load 2012-08-22.log
 #count sessions -> session count
 #count event -> event count
 #How many events are there? -> event count
