@@ -10,4 +10,5 @@ LOCAL_DATABASES = {
     }
 }
 
-FILE_STORAGE = '' 
+FILE_STORAGE = ''
+EMAIL_PASSWORD = ''  
