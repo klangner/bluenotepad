@@ -2,7 +2,7 @@
 # Django settings for bluenotepad project.
 from local_settings import LOCAL_DATABASES, LOCAL_DEBUG, LOCAL_FILE_STORAGE, LOCAL_SECRET_KEY, LOCAL_EMAIL_PASSWORD
 import os
-import re
+
 
 DEBUG = LOCAL_DEBUG
 DATABASES = LOCAL_DATABASES
@@ -21,7 +21,6 @@ EMAIL_HOST = 'mail.matrobot.com'
 EMAIL_PORT = 2525
 EMAIL_HOST_USER = 'app+matrobot.com'
 EMAIL_HOST_PASSWORD = LOCAL_EMAIL_PASSWORD
-SEND_BROKEN_LINK_EMAILS = True
 SERVER_EMAIL = 'app@matrobot.com'
 
 
@@ -129,10 +128,9 @@ INSTALLED_APPS = (
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 
-IGNORABLE_404_URLS = (
-    re.compile(r'\.(php|cgi)$'),
-    re.compile(r'^/phpmyadmin/'),
-)
+SEND_BROKEN_LINK_EMAILS = False
+IGNORABLE_404_ENDS = ('.php', '.cgi')
+IGNORABLE_404_STARTS = ('/phpmyadmin/',)
 
 LOGGING = {
     'version': 1,
